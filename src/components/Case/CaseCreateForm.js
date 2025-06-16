@@ -22,6 +22,17 @@ export default function CaseCreateForm({ onCreated }) {
       .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    if (submitting) {
+      const preventExit = e => {
+        e.preventDefault();
+        e.returnValue = '';
+      };
+      window.addEventListener('beforeunload', preventExit);
+      return () => window.removeEventListener('beforeunload', preventExit);
+    }
+  }, [submitting]);
+
   const toggleTopic = id => {
     setTopicIds(prev => {
       if (prev.includes(id)) {
@@ -49,9 +60,6 @@ export default function CaseCreateForm({ onCreated }) {
       setSubmitting(false);
     }
   };
-
-  const btnClass =
-    'bg-white border border-gray-300 text-gray-700 hover:bg-blue-100 shadow-lg rounded-full py-3 px-6 text-lg font-semibold transition-all duration-200 ease-in-out transform hover:scale-105';
 
   if (loading) {
     return (
@@ -129,9 +137,9 @@ export default function CaseCreateForm({ onCreated }) {
                   onClick={() => !disabled && toggleTopic(t.topicId)}
                 >
                   <div
-                    className={`mt-1 w-5 h-5 flex-shrink-0 rounded-sm flex items-center justify-center border transition-all duration-200 ease-in-out
-                    ${checked ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'}
-                  `}
+                    className={`mt-1 w-5 h-5 flex-shrink-0 rounded-sm flex items-center justify-center border transition-all duration-200 ease-in-out ${
+                      checked ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'
+                    }`}
                   >
                     {checked && (
                       <svg
@@ -162,14 +170,21 @@ export default function CaseCreateForm({ onCreated }) {
         </div>
 
         {/* Submit */}
-        <button type="submit" className={btnClass} disabled={submitting}>
-          {submitting ? (
-            <span className="loading loading-spinner text-blue-600"></span>
-          ) : (
-            '🚀 Generiraj priču'
-          )}
+        <button
+          type="submit"
+          disabled={submitting}
+          className="bg-white border border-gray-300 text-gray-700 hover:bg-blue-100 shadow-lg rounded-full py-3 px-6 text-lg font-semibold transition-all duration-200 ease-in-out transform hover:scale-105 disabled:opacity-50"
+        >
+          🚀 Generiraj priču
         </button>
       </form>
+
+      {/* Fullscreen loader kada je submitting */}
+        {submitting && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-200 pointer-events-auto">
+            <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
     </div>
   );
 }
