@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { postJSON } from '../../api/apiClient';
 
+
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
+
 export default function ReportProblemModal({ isOpen, onClose, historyId, onReportSuccess }) {
   const [description, setDescription] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -18,7 +24,7 @@ export default function ReportProblemModal({ isOpen, onClose, historyId, onRepor
         taskHistoryId: historyId,
         description: description.trim(),
       };
-      await postJSON('/api/v1/task-report', payload);
+      await postJSON(`${API_URL}/task-report`, payload);
       onReportSuccess(); // 🔥 triggeraj zaključavanje i zatvori modal
     } catch (error) {
       setFeedback({

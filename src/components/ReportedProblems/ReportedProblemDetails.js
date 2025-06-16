@@ -4,6 +4,11 @@ import { getJSON } from '../../api/apiClient';
 import { getCurrentUser } from '../../api/userApi';
 import EditReportModal from './EditReportModal'; // Adjust path as needed
 
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
+
 export default function ReportedProblemDetails() {
   const { reportId } = useParams();
   const navigate = useNavigate();
@@ -18,7 +23,7 @@ export default function ReportedProblemDetails() {
       try {
         // Fetch both report and user data
         const [reportData, userData] = await Promise.all([
-          getJSON(`/api/v1/task-report/${reportId}`),
+          getJSON(`${API_URL}/task-report/${reportId}`),
           getCurrentUser()
         ]);
         setReport(reportData);

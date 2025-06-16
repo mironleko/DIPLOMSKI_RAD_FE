@@ -9,6 +9,11 @@ const STATUS_LABELS = {
   REVIEWED: 'Prijava prihvaćena',
 };
 
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
+
 
 export default function ReportedProblems() {
   const navigate = useNavigate();
@@ -61,8 +66,8 @@ export default function ReportedProblems() {
 
       const query = `?page=${currentPage}&size=${pageSize}`;
       const endpoint = user.role === 'TEACHER'
-        ? `/api/v1/task-report/search${query}`
-        : `/api/v1/user/task-report/search${query}`;
+        ? `${API_URL}/task-report/search${query}`
+        : `${API_URL}/user/task-report/search${query}`;
 
       const data = await postJSON(endpoint, body);
       setReports(data.content);

@@ -1,6 +1,11 @@
 // src/api/learningMode.js
 import { postJSON } from './apiClient';
 
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
+
 /**
  * Poziva Learning Mode endpoint s navedenim parametrima.
  * @param {Object} params
@@ -11,7 +16,7 @@ import { postJSON } from './apiClient';
  * @returns {Promise<Object>}
  */
 export function fetchLearningMode({ gradeId, topicId, lessonId, difficulty }) {
-  return postJSON('/api/v1/learning-mode', {
+  return postJSON(`${API_URL}/learning-mode`, {
     gradeId,
     topicId,
     lessonId,

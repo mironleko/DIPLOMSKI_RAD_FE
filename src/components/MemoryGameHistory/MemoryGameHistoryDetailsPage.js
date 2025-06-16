@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { getJSON } from '../../api/apiClient';
 import { useNavigate, useParams } from 'react-router-dom';
 
+
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
+
 export default function MemoryGameHistoryDetailsPage() {
   const [gameData, setGameData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +18,7 @@ export default function MemoryGameHistoryDetailsPage() {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const data = await getJSON(`/api/v1/memory-game/history/${historyId}`);
+        const data = await getJSON(`${API_URL}/memory-game/history/${historyId}`);
         setGameData(data);
       } catch (err) {
         console.error('Error fetching game details:', err);

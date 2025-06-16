@@ -12,6 +12,12 @@ import { postJSON } from '../../api/apiClient';
 const topicColor  = "bg-blue-600 text-white";
 const lessonColor = "bg-blue-100 text-gray-800";
 
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
+
+
 export default function CurriculumTable({ viewMode = "VIEW" }) {
   const navigate = useNavigate();
 
@@ -32,10 +38,9 @@ export default function CurriculumTable({ viewMode = "VIEW" }) {
 
   const fetchCurriculum = async gradeId => {
     try {
-      const data = await postJSON(
-        '/api/v1/curriculum/search',
-        { gradeId: Number(gradeId) }
-      );
+      const data = await postJSON(`${API_URL}/curriculum/search`, {
+        gradeId: Number(gradeId),
+      });
       // default expanded: false
       const withFlags = data.topics.map(t => ({ ...t, expanded: false }));
       setCurriculum(withFlags);

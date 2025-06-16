@@ -7,6 +7,10 @@ const STATUS_OPTIONS = {
   REVIEWED: 'Prijava prihvaćena',
 };
 
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
 
 export default function EditReportModal({ isOpen, onClose, reportData, onSuccess }) {
   const [status, setStatus] = useState('OPEN');
@@ -25,7 +29,7 @@ export default function EditReportModal({ isOpen, onClose, reportData, onSuccess
     setSubmitting(true);
     setFeedback(null);
     try {
-      await putJSON(`/api/v1/task-report/${reportData.taskReportId}`, {
+      await putJSON(`${API_URL}/task-report/${reportData.taskReportId}`, {
         status,
         resolutionNote: note,
       });

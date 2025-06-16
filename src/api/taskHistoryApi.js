@@ -1,33 +1,38 @@
-import { postJSON,getJSON } from './apiClient';
+import { postJSON, getJSON } from './apiClient';
+
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
 
 /**
  * Records a user's answer attempt.
- * @param {number} historyId 
- * @param {string} answer 
+ * @param {number} historyId
+ * @param {string} answer
  * @returns {Promise<{ isCorrect: boolean, attemptsUsed: number, solved: boolean }>}
  */
 export async function recordAttempt(historyId, answer) {
-  return await postJSON(`/api/v1/task-history/${historyId}/attempt`, {
+  return await postJSON(`${API_URL}/task-history/${historyId}/attempt`, {
     answer,
   });
 }
 
 /**
  * Logs that user viewed a hint.
- * @param {number} historyId 
+ * @param {number} historyId
  * @returns {Promise<{ message: string }>}
  */
 export async function recordHint(historyId) {
-  return await postJSON(`/api/v1/task-history/${historyId}/hint`);
+  return await postJSON(`${API_URL}/task-history/${historyId}/hint`);
 }
 
 /**
  * Logs that user viewed the solution.
- * @param {number} historyId 
+ * @param {number} historyId
  * @returns {Promise<{ message: string }>}
  */
 export async function recordSolution(historyId) {
-  return await postJSON(`/api/v1/task-history/${historyId}/solution`);
+  return await postJSON(`${API_URL}/task-history/${historyId}/solution`);
 }
 
 /**
@@ -35,25 +40,24 @@ export async function recordSolution(historyId) {
  * @returns {Promise<Array<UserTaskHistoryDto>>}
  */
 export async function getUserTaskHistory() {
-  return await getJSON('/api/v1/user-task-history');
+  return await getJSON(`${API_URL}/user-task-history`);
 }
 
 /**
  * Fetch full details for a specific task history entry.
- * @param {number} historyId 
+ * @param {number} historyId
  * @returns {Promise<UserTaskHistoryDto>}
  */
 export async function getTaskHistoryById(historyId) {
-  return await getJSON(`/api/v1/user-task-history/${historyId}`);
+  return await getJSON(`${API_URL}/user-task-history/${historyId}`);
 }
-
 
 /**
  * Fetch all grades.
  * @returns {Promise<Array<{ gradeId: number, name: string }>>}
  */
 export async function getGrades() {
-  return await getJSON('/api/v1/grades');
+  return await getJSON(`${API_URL}/grades`);
 }
 
 /**
@@ -62,7 +66,7 @@ export async function getGrades() {
  * @returns {Promise<Array<{ topicId: number, name: string }>>}
  */
 export async function getTopicsByGrade(gradeId) {
-  return await getJSON(`/api/v1/grade/${gradeId}/topics`);
+  return await getJSON(`${API_URL}/grade/${gradeId}/topics`);
 }
 
 /**
@@ -72,7 +76,7 @@ export async function getTopicsByGrade(gradeId) {
  * @returns {Promise<Array<{ lessonId: number, name: string }>>}
  */
 export async function getLessonsByGradeAndTopic(gradeId, topicId) {
-  return await getJSON(`/api/v1/grade/${gradeId}/topic/${topicId}/lessons`);
+  return await getJSON(`${API_URL}/grade/${gradeId}/topic/${topicId}/lessons`);
 }
 
 /**
@@ -84,5 +88,5 @@ export async function getLessonsByGradeAndTopic(gradeId, topicId) {
  */
 export async function searchUserTaskHistory(filters, page, size) {
   const query = `?page=${page}&size=${size}`;
-  return await postJSON(`/api/v1/user/task-history/search${query}`, filters);
+  return await postJSON(`${API_URL}/user/task-history/search${query}`, filters);
 }

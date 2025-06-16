@@ -5,7 +5,7 @@ import { getJSON, postJSON,putJSON } from './apiClient';
 const BASE_URL =
     process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
-const API_URL = BASE_URL + '/api/v1/';
+const API_URL = BASE_URL + '/api/v1';
 
 export function fetchSubjects() {
   return getJSON(`${API_URL}/subjects`);

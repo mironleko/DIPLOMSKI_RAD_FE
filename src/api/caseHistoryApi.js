@@ -1,4 +1,9 @@
-import { getJSON,postJSON } from './apiClient';
+import { getJSON, postJSON } from './apiClient';
+
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
 
 /**
  * Pretražuje završene Math Detective slučajeve korisnika s opcionalnim filtrima i paginacijom.
@@ -13,14 +18,14 @@ import { getJSON,postJSON } from './apiClient';
  */
 export function searchUserCaseHistories({ subjectId, minScore, maxScore, page = 0, size = 10 }) {
   const body = { subjectId, minScore, maxScore };
-  return postJSON(`/api/v1/user/case-history/search?page=${page}&size=${size}`, body);
+  return postJSON(`${API_URL}/user/case-history/search?page=${page}&size=${size}`, body);
 }
 
 /**
  * Fetch detailed information for a specific completed case.
- * @param {number} caseHistoryId 
+ * @param {number} caseHistoryId
  * @returns {Promise<UserCaseHistoryDetailsDto>}
  */
 export async function getUserCaseHistoryDetails(caseHistoryId) {
-  return await getJSON(`/api/v1/user-case-history/${caseHistoryId}`);
+  return await getJSON(`${API_URL}/user-case-history/${caseHistoryId}`);
 }

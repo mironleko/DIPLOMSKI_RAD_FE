@@ -2,6 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { getJSON } from '../../api/apiClient';
 import { useNavigate } from 'react-router-dom';
 
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
+
 export default function MemoryGameHistoryPage() {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +20,7 @@ export default function MemoryGameHistoryPage() {
 
     const fetchHistory = async () => {
       try {
-        const data = await getJSON('/api/v1/memory-game/history');
+        const data = await getJSON(`${API_URL}/memory-game/history`);
         setHistory(data);
       } catch (err) {
         console.error('Greška pri dohvaćanju povijesti:', err);

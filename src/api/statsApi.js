@@ -2,6 +2,11 @@
 
 import { getJSON } from './apiClient';
 
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
+
 /**
  * Dohvati statistiku zadataka za trenutno prijavljenog korisnika.
  *
@@ -16,9 +21,10 @@ import { getJSON } from './apiClient';
  *   reportStatusInvalid: number,
  *   reportStatusReviewed: number
  * }>}
+
  */
 export function getUserTaskStats() {
-  return getJSON('/api/v1/user/stats/tasks');
+  return getJSON(`${API_URL}/user/stats/tasks`);
 }
 
 /**
@@ -26,5 +32,5 @@ export function getUserTaskStats() {
  * GET /api/v1/stats/tasks
  */
 export function getAllTaskStats() {
-  return getJSON('/api/v1/stats/tasks');
+  return getJSON(`${API_URL}/stats/tasks`);
 }

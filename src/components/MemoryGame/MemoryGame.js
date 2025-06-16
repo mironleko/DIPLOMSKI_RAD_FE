@@ -2,6 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postJSON, putJSON } from '../../api/apiClient';
 
+
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1';
+
 export default function MemoryGame() {
   const navigate = useNavigate();
 
@@ -33,7 +39,7 @@ export default function MemoryGame() {
     setAttemptCount(0);
 
     try {
-      const data = await postJSON('/api/v1/memory-game/generate-tasks');
+      const data = await postJSON(`${API_URL}/memory-game/generate-tasks`);
       setRows(data.rows);
       setCols(data.cols);
       setPairs(data.pairs);
@@ -74,7 +80,7 @@ export default function MemoryGame() {
 
   const finishGame = async () => {
     try {
-      await putJSON(`/api/v1/memory-game/history/${memoryGameHistoryId}/finish`, {
+      await putJSON(`${API_URL}/memory-game/history/${memoryGameHistoryId}/finish`, {
         attempts: attemptCount,
       });
       console.log('✅ Game finished and saved');
