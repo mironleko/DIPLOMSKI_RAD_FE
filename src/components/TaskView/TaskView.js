@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { recordAttempt, recordHint, recordSolution } from '../../api/taskHistoryApi';
 import ReportProblemModal from '../ReportProblem/ReportProblemModal';
-import { fetchLearningMode } from '../../api/learningMode'; // koristiš svoj novi API helper
+import { fetchLearningMode } from '../../api/learningMode';
 
 export default function TaskView() {
   const { lessonId } = useParams();
@@ -65,7 +65,6 @@ export default function TaskView() {
 
   const handleSubmitAnswer = async () => {
     if (!historyId || !userAnswer.trim()) return;
-
     try {
       const res = await recordAttempt(historyId, userAnswer.trim());
       setAttemptResult(res);
@@ -118,9 +117,7 @@ export default function TaskView() {
   if (!taskData && !loading && !error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-200">
-        <div className="text-center space-y-4">
-          <p className="text-lg text-gray-600">Zadatak još nije učitan.</p>
-        </div>
+        <p className="text-lg text-gray-600">Zadatak još nije učitan.</p>
       </div>
     );
   }
@@ -136,11 +133,11 @@ export default function TaskView() {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-200">
-        <div className="alert alert-error shadow-md max-w-md bg-red-100 border-red-500 text-red-800">
+        <div className="bg-red-100 border border-red-500 text-red-800 p-4 rounded-lg shadow-md max-w-md text-center space-y-4">
           <span>{error}</span>
           <button
             onClick={loadTask}
-            className="btn btn-ghost mt-4 bg-white border border-gray-300 text-gray-700 hover:bg-blue-100"
+            className="bg-white border border-gray-300 text-gray-700 hover:bg-blue-100 px-4 py-2 rounded transition"
           >
             Pokušaj ponovo
           </button>
@@ -148,7 +145,6 @@ export default function TaskView() {
       </div>
     );
   }
-  
 
   return (
     <div className="min-h-screen p-8 bg-gradient-to-br from-green-100 to-blue-200 relative">
@@ -161,8 +157,8 @@ export default function TaskView() {
       </button>
 
       <div className="max-w-3xl mx-auto">
-        <div className="card bg-white shadow-lg rounded-2xl border border-gray-300">
-          <div className="card-body space-y-6">
+        <div className="bg-white shadow-lg rounded-2xl border border-gray-300">
+          <div className="p-8 space-y-6">
             <h2 className="text-3xl font-bold text-gray-700">📝 Zadatak</h2>
             <p className="text-gray-600">{taskData.question}</p>
 
@@ -213,21 +209,21 @@ export default function TaskView() {
               <button
                 onClick={handleHintReveal}
                 disabled={showHints}
-                className="btn btn-ghost flex-1 bg-white border border-gray-300 text-gray-700 hover:bg-blue-100 disabled:opacity-50"
+                className="flex-1 inline-flex justify-center items-center px-4 py-2 rounded-md bg-white text-gray-700 border border-gray-300 hover:bg-blue-100 disabled:opacity-50 transition"
               >
                 {showHints ? 'Hintovi prikazani' : 'Pokaži hintove'}
               </button>
               <button
                 onClick={handleShowSolution}
                 disabled={showSolution}
-                className="btn btn-ghost flex-1 bg-white border border-gray-300 text-gray-700 hover:bg-blue-100"
+                className="flex-1 inline-flex justify-center items-center px-4 py-2 rounded-md bg-white text-gray-700 border border-gray-300 hover:bg-blue-100 disabled:opacity-50 transition"
               >
                 {showSolution ? 'Rješenje prikazano' : 'Pokaži rješenje'}
               </button>
               <button
                 onClick={() => setIsReportModalOpen(true)}
                 disabled={reportDisabled}
-                className="btn btn-ghost flex-1 bg-white border border-gray-300 text-red-600 hover:bg-red-100 disabled:opacity-50"
+                className="flex-1 inline-flex justify-center items-center px-4 py-2 rounded-md bg-white text-red-600 border border-gray-300 hover:bg-red-100 disabled:opacity-50 transition"
               >
                 {reportDisabled ? '🛠️ Prijava poslana' : '🛠️ Prijavi problem'}
               </button>
