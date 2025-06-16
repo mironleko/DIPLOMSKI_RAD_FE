@@ -1,5 +1,8 @@
 // src/api/authService.js
-const API_URL = '/api/v1/';
+const BASE_URL =
+    process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+const API_URL = BASE_URL + '/api/v1/';
 
 export async function login(email, password) {
   const res = await fetch(API_URL + 'login', {
