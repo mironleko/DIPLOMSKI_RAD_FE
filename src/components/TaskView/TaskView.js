@@ -166,15 +166,6 @@ export default function TaskView() {
             <h2 className="text-3xl font-bold text-gray-700">📝 Zadatak</h2>
             <p className="text-gray-600">{taskData.question}</p>
 
-            {taskData.svgCode && (
-              <div className="p-4 bg-blue-100 rounded-lg border border-blue-300">
-                <div
-                  className="overflow-auto"
-                  dangerouslySetInnerHTML={{ __html: taskData.svgCode }}
-                />
-              </div>
-            )}
-
             <div className="p-6 bg-gradient-to-br from-white to-gray-50 rounded-xl border border-gray-200 shadow-inner">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">✍️ Unesi svoj odgovor</h3>
               <div className="flex flex-col sm:flex-row sm:items-center gap-4">
