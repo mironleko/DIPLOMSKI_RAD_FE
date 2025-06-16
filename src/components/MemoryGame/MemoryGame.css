@@ -1,0 +1,61 @@
+/* MemoryGame.css */
+
+/* Card Styling */
+.card {
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.5s ease-in-out, box-shadow 0.3s;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Button Styling */
+.btn {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #ffffff;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+/* Grid Styling */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+}
+
+/* Background */
+body {
+  background: linear-gradient(135deg, #2f2f2f, #111111);
+  color: #ffffff;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Card Flip Effect */
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Centering Content */
+.center-text {
+  text-align: center;
+  margin-bottom: 2rem;
+}
