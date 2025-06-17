@@ -73,13 +73,10 @@ export default function CurriculumTable({ viewMode = "VIEW" }) {
 
       <button
         onClick={() => navigate('/')}
-        className="fixed top-4 left-4 bg-white border border-gray-300
-                   text-gray-700 hover:bg-blue-100 shadow-lg rounded-full
-                   p-4 text-2xl z-50 transition-all duration-200 ease-in-out
-                   transform hover:scale-110"
+        className="fixed top-4 left-4 bg-white border border-gray-300 text-gray-700 hover:bg-blue-100 shadow-lg rounded-full p-4 text-3xl z-50 transition-all duration-200 ease-in-out transform hover:scale-110"
         title="Natrag na Glavni Meni"
       >
-        <AiOutlineArrowLeft />
+        ⬅️
       </button>
 
       <label htmlFor="grade-select"
@@ -93,10 +90,7 @@ export default function CurriculumTable({ viewMode = "VIEW" }) {
         value={selectedGrade}
         onChange={e => setSelectedGrade(e.target.value)}
       >
-        <option value="1">5. razred</option>
-        <option value="2">6. razred</option>
-        <option value="3">7. razred</option>
-        <option value="4">8. razred</option>
+        <option value="1">6. razred</option>
       </select>
 
       <table className="w-full border-collapse rounded-lg shadow-lg overflow-hidden">
