@@ -212,20 +212,27 @@ export default function MemoryGame() {
                     textAlign: 'center',
                   }}
                 >
-                  <span
-                    className="font-bold text-gray-800 text-center break-words"
-                    style={{
-                      fontSize: 'clamp(0.75rem, 1.5vw, 1.25rem)',
-                      lineHeight: 1.1,
-                      wordBreak: 'break-word',
-                      maxHeight: '100%',
-                      overflow: 'hidden',
-                      display: 'block',
-                      padding: '0 4px',
-                    }}
-                  >
-                    {card.content}
-                  </span>
+                <span
+                  className="font-bold text-gray-800 text-center"
+                  style={{
+                    fontSize:
+                      card.content.length > 50
+                        ? '0.65rem'
+                        : card.content.length > 40
+                        ? '0.75rem'
+                        : card.content.length > 30
+                        ? '0.85rem'
+                        : '1rem',
+                    lineHeight: '1.4',
+                    wordBreak: 'break-word',
+                    overflowWrap: 'break-word',
+                    whiteSpace: 'pre-wrap',
+                    padding: '6px',
+                    display: 'block',
+                  }}
+                >
+                  {card.content}
+                </span>
                 </div>
               </div>
             </div>
